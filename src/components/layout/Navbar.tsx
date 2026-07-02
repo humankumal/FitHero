@@ -28,11 +28,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close the mobile menu on navigation
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
-
   return (
     <header
       className={cn(
@@ -106,6 +101,7 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  onClick={() => setMenuOpen(false)}
                   className={cn(
                     "block rounded-xl px-4 py-3 text-base",
                     pathname === link.href
@@ -117,7 +113,7 @@ export function Navbar() {
                 </Link>
               ))}
               <div className="pt-3">
-                <Button href="/booking" className="w-full">
+                <Button href="/booking" className="w-full" onClick={() => setMenuOpen(false)}>
                   Book a Session
                 </Button>
               </div>
