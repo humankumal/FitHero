@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  /* Base — deep navy/charcoal */
+  --color-ink-950: #060a13;
+  --color-ink-900: #0b1120;
+  --color-ink-800: #111a2e;
+  --color-ink-700: #1a2540;
+  --color-ink-600: #263354;
+
+  /* Primary — fresh mint/teal (calm energy) */
+  --color-mint-300: #6ee9c5;
+  --color-mint-400: #3ce0ad;
+  --color-mint-500: #22c795;
+  --color-mint-600: #17a37a;
+
+  /* Motivation — warm amber */
+  --color-ember-300: #ffd08a;
+  --color-ember-400: #ffb454;
+  --color-ember-500: #f59133;
+
+  /* Calm — soft violet for meditation accents */
+  --color-haze-300: #c4b5fd;
+  --color-haze-400: #a78bfa;
+  --color-haze-500: #8b5cf6;
+
+  /* Sky — for yoga accents */
+  --color-sky-300: #7dd3fc;
+  --color-sky-400: #38bdf8;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sora), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-glow: 0 0 40px -8px rgba(60, 224, 173, 0.35);
+  --shadow-card: 0 8px 32px -12px rgba(2, 6, 16, 0.65);
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink-950);
+  color: #e6ebf4;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: rgba(60, 224, 173, 0.28);
+  color: #ffffff;
+}
+
+/* Accessible focus without default ring noise */
+:focus-visible {
+  outline: 2px solid var(--color-mint-400);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
