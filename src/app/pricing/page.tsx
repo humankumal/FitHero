@@ -51,6 +51,8 @@ export default function PricingPage() {
         <CtaBand
           title="Still deciding?"
           description="Book a free consultation — we'll help you pick the right plan and programs for your goals. No pressure, no card required."
+          secondaryHref="/contact"
+          secondaryLabel="Get a Free Consultation"
         />
       </div>
     </>

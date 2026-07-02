@@ -4,11 +4,15 @@ import { Reveal } from "@/components/motion/Reveal";
 interface CtaBandProps {
   title?: string;
   description?: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
 }
 
 export function CtaBand({
   title = "Ready to become your strongest self?",
   description = "Join 4,200+ members building strength, calm, and discipline — one guided session at a time.",
+  secondaryHref = "/pricing",
+  secondaryLabel = "View Membership Plans",
 }: CtaBandProps) {
   return (
     <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
@@ -30,8 +34,8 @@ export function CtaBand({
               <Button href="/booking" size="lg">
                 Start Your Journey
               </Button>
-              <Button href="/pricing" variant="secondary" size="lg">
-                View Membership Plans
+              <Button href={secondaryHref} variant="secondary" size="lg">
+                {secondaryLabel}
               </Button>
             </div>
           </div>

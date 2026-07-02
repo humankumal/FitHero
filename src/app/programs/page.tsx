@@ -29,6 +29,8 @@ export default function ProgramsPage() {
       <CtaBand
         title="Not sure where to start?"
         description="Book a free consultation and we'll match you with the right programs for your goals, schedule, and starting point."
+        secondaryHref="/contact"
+        secondaryLabel="Get a Free Consultation"
       />
     </>
   );

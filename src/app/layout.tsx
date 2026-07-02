@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Sora } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -29,6 +29,10 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Fit Hero",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#060a13",
 };
 
 export default function RootLayout({

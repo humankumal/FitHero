@@ -62,7 +62,6 @@ export const sessions: Session[] = [
     rating: 4.8,
     reviewCount: 356,
     equipment: ["Dumbbells", "Jump rope (optional)"],
-    featured: true,
   },
   {
     slug: "mobility-reset",
