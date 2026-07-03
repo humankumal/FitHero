@@ -10,7 +10,7 @@ interface RevealProps {
   as?: "div" | "section" | "li";
 }
 
-/** Fades and slides content up when it scrolls into view. */
+/** Fades, lifts, and un-blurs content when it scrolls into view. */
 export function Reveal({ children, className, delay = 0, as = "div" }: RevealProps) {
   const reduceMotion = useReducedMotion();
   const MotionTag = motion[as];
@@ -18,10 +18,10 @@ export function Reveal({ children, className, delay = 0, as = "div" }: RevealPro
   return (
     <MotionTag
       className={className}
-      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 28, filter: "blur(5px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </MotionTag>

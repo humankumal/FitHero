@@ -11,7 +11,9 @@ export function PageHeader({ eyebrow, title, description, children }: PageHeader
   return (
     <section className="relative overflow-hidden border-b border-white/5">
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-32 left-1/2 h-[380px] w-[720px] -translate-x-1/2 rounded-full bg-mint-500/10 blur-[130px]" />
+        <div className="absolute -top-32 left-1/2 h-[380px] w-[720px] -translate-x-1/2">
+          <div className="h-full w-full rounded-full bg-mint-500/10 blur-[130px] animate-glow-drift" />
+        </div>
       </div>
       <div className="relative mx-auto max-w-7xl px-4 pb-14 pt-32 text-center sm:px-6 sm:pt-36 lg:px-8">
         <Reveal>

@@ -15,7 +15,7 @@ export function CategoryCard({ category }: CategoryCardProps) {
   return (
     <Link
       href={`/programs?category=${category.slug}`}
-      className="group relative overflow-hidden rounded-2xl border border-white/8 bg-white/[0.03] p-6 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-white/15"
+      className="group relative overflow-hidden rounded-2xl border border-white/8 bg-white/[0.03] p-6 shadow-card transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-white/15 hover:shadow-[0_20px_48px_-20px_rgba(2,6,16,0.9),0_0_32px_-16px_rgba(60,224,173,0.25)] motion-reduce:transition-none motion-reduce:transform-none"
     >
       <div
         className={cn(

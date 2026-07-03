@@ -1,6 +1,8 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
 import { Card } from "@/components/ui/Card";
-import { formatPrice } from "@/lib/utils";
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 
 interface RevenueChartProps {
   data: { month: string; revenue: number }[];
@@ -15,6 +17,7 @@ const gridlines = [0, 50_000, 100_000, 150_000];
  */
 export function RevenueChart({ data }: RevenueChartProps) {
   const latest = data[data.length - 1];
+  const reduceMotion = useReducedMotion();
 
   return (
     <Card className="p-6">
@@ -54,20 +57,33 @@ export function RevenueChart({ data }: RevenueChartProps) {
               <div key={point.month} className="group relative flex h-full flex-1 items-end">
                 {/* Hover target is the full column, not just the bar */}
                 <div className="absolute inset-0" />
-                <div
+                <motion.div
                   className={cn(
                     "relative mx-auto w-full max-w-10 rounded-t-[4px] transition-colors",
                     isLatest
                       ? "bg-mint-400 group-hover:bg-mint-300"
                       : "bg-mint-500/55 group-hover:bg-mint-500/80",
                   )}
-                  style={{ height: `${(point.revenue / AXIS_MAX) * 100}%` }}
+                  initial={
+                    reduceMotion
+                      ? { height: `${(point.revenue / AXIS_MAX) * 100}%` }
+                      : { height: "0%" }
+                  }
+                  whileInView={{ height: `${(point.revenue / AXIS_MAX) * 100}%` }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.8, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
                 />
                 {/* Direct label on the latest bar only */}
                 {isLatest && (
-                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 -translate-y-full text-xs font-semibold text-white">
+                  <motion.span
+                    className="absolute -top-1 left-1/2 -translate-x-1/2 -translate-y-full text-xs font-semibold text-white"
+                    initial={reduceMotion ? false : { opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.4, delay: 0.9 }}
+                  >
                     {Math.round(point.revenue / 1000)}k
-                  </span>
+                  </motion.span>
                 )}
                 {/* Tooltip */}
                 <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 -translate-x-1/2 whitespace-nowrap rounded-lg border border-white/10 bg-ink-800 px-3 py-2 text-xs opacity-0 shadow-card transition-opacity duration-150 group-hover:opacity-100">

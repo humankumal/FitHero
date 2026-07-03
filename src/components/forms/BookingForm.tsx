@@ -3,12 +3,13 @@
 import { useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { motion, useReducedMotion } from "framer-motion";
 import type { Session } from "@/lib/types";
 import { getCategory, getTrainer } from "@/lib/data";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Input, Label, Select } from "@/components/forms/fields";
-import { CheckIcon, CalendarIcon, ClockIcon } from "@/components/icons";
+import { CalendarIcon, ClockIcon } from "@/components/icons";
 import { cn, formatPrice } from "@/lib/utils";
 
 const timeSlots = ["06:30", "08:00", "12:15", "17:30", "19:00", "20:30"];
@@ -51,6 +52,7 @@ interface BookingFormProps {
 
 export function BookingForm({ sessions }: BookingFormProps) {
   const searchParams = useSearchParams();
+  const reduceMotion = useReducedMotion();
   const requestedSession = searchParams.get("session");
 
   const [slug, setSlug] = useState(
@@ -84,10 +86,31 @@ export function BookingForm({ sessions }: BookingFormProps) {
 
   if (confirmed) {
     return (
+      <motion.div
+        initial={reduceMotion ? false : { opacity: 0, y: 24, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      >
       <Card className="p-8 text-center sm:p-12">
-        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-mint-400/15 text-mint-400">
-          <CheckIcon className="h-8 w-8" />
-        </span>
+        <motion.span
+          className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-mint-400/15 text-mint-400"
+          initial={reduceMotion ? false : { scale: 0.4, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.15 }}
+        >
+          <svg viewBox="0 0 24 24" className="h-8 w-8" fill="none" aria-hidden>
+            <motion.path
+              d="M4.5 12.5l5 5 10-11"
+              stroke="currentColor"
+              strokeWidth={1.8}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              initial={reduceMotion ? false : { pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
+            />
+          </svg>
+        </motion.span>
         <h2 className="mt-6 font-display text-2xl font-semibold text-white">
           You&apos;re booked, {confirmed.name}!
         </h2>
@@ -113,6 +136,7 @@ export function BookingForm({ sessions }: BookingFormProps) {
           </Button>
         </div>
       </Card>
+      </motion.div>
     );
   }
 
@@ -145,25 +169,41 @@ export function BookingForm({ sessions }: BookingFormProps) {
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-4 gap-2 sm:grid-cols-7">
+              <motion.div
+                className="grid grid-cols-4 gap-2 sm:grid-cols-7"
+                initial={reduceMotion ? false : "hidden"}
+                animate="visible"
+                variants={{ visible: { transition: { staggerChildren: 0.035 } }, hidden: {} }}
+              >
                 {days.map((day) => (
-                  <button
+                  <motion.button
                     key={day.iso}
                     type="button"
                     onClick={() => setDateIso(day.iso)}
                     aria-pressed={selectedIso === day.iso}
+                    variants={{
+                      hidden: { opacity: 0, y: 10 },
+                      visible: { opacity: 1, y: 0 },
+                    }}
+                    whileTap={reduceMotion ? undefined : { scale: 0.94 }}
+                    animate={
+                      reduceMotion
+                        ? undefined
+                        : { scale: selectedIso === day.iso ? 1.04 : 1 }
+                    }
+                    transition={{ type: "spring", stiffness: 420, damping: 24 }}
                     className={cn(
                       "rounded-xl border px-2 py-3 text-center transition-colors",
                       selectedIso === day.iso
-                        ? "border-mint-400/60 bg-mint-400/10 text-white"
+                        ? "border-mint-400/60 bg-mint-400/10 text-white shadow-[0_0_20px_-6px_rgba(60,224,173,0.4)]"
                         : "border-white/10 bg-white/[0.03] text-slate-400 hover:border-white/25 hover:text-white",
                     )}
                   >
                     <span className="block text-xs uppercase tracking-wider">{day.weekday}</span>
                     <span className="mt-1 block text-sm font-semibold">{day.day}</span>
-                  </button>
+                  </motion.button>
                 ))}
-              </div>
+              </motion.div>
             )}
           </fieldset>
 
@@ -171,20 +211,23 @@ export function BookingForm({ sessions }: BookingFormProps) {
             <legend className="mb-2 block text-sm font-medium text-slate-300">Pick a time</legend>
             <div className="flex flex-wrap gap-2">
               {timeSlots.map((slot) => (
-                <button
+                <motion.button
                   key={slot}
                   type="button"
                   onClick={() => setTime(slot)}
                   aria-pressed={time === slot}
+                  whileTap={reduceMotion ? undefined : { scale: 0.93 }}
+                  animate={reduceMotion ? undefined : { scale: time === slot ? 1.05 : 1 }}
+                  transition={{ type: "spring", stiffness: 420, damping: 24 }}
                   className={cn(
                     "rounded-full border px-4 py-2 text-sm transition-colors",
                     time === slot
-                      ? "border-mint-400/60 bg-mint-400/10 text-white"
+                      ? "border-mint-400/60 bg-mint-400/10 text-white shadow-[0_0_20px_-6px_rgba(60,224,173,0.4)]"
                       : "border-white/10 bg-white/[0.03] text-slate-400 hover:border-white/25 hover:text-white",
                   )}
                 >
                   {slot}
-                </button>
+                </motion.button>
               ))}
             </div>
           </fieldset>

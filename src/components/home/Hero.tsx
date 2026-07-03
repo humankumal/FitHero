@@ -66,9 +66,21 @@ export function Hero() {
     <section className="relative overflow-hidden">
       {/* Ambient background */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 left-1/2 h-[560px] w-[900px] -translate-x-1/2 rounded-full bg-mint-500/12 blur-[140px]" />
-        <div className="absolute right-[-160px] top-40 h-[420px] w-[420px] rounded-full bg-ember-500/10 blur-[120px]" />
-        <div className="absolute bottom-[-200px] left-[-120px] h-[420px] w-[420px] rounded-full bg-haze-500/10 blur-[120px]" />
+        <div className="absolute -top-40 left-1/2 h-[560px] w-[900px] -translate-x-1/2">
+          <div className="h-full w-full rounded-full bg-mint-500/12 blur-[140px] animate-glow-drift" />
+        </div>
+        <div className="absolute right-[-160px] top-40 h-[420px] w-[420px]">
+          <div
+            className="h-full w-full rounded-full bg-ember-500/10 blur-[120px] animate-glow-pulse"
+            style={{ animationDelay: "2s" }}
+          />
+        </div>
+        <div className="absolute bottom-[-200px] left-[-120px] h-[420px] w-[420px]">
+          <div
+            className="h-full w-full rounded-full bg-haze-500/10 blur-[120px] animate-glow-pulse"
+            style={{ animationDelay: "5s" }}
+          />
+        </div>
         <div
           className="absolute inset-0 opacity-[0.35]"
           style={{

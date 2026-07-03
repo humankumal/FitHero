@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type { PricingPlan } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
 import { CheckIcon } from "@/components/icons";
@@ -12,6 +13,7 @@ interface PricingPlansProps {
 
 export function PricingPlans({ plans }: PricingPlansProps) {
   const [yearly, setYearly] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   return (
     <div>
@@ -25,15 +27,18 @@ export function PricingPlans({ plans }: PricingPlansProps) {
           aria-label="Toggle yearly billing"
           onClick={() => setYearly((y) => !y)}
           className={cn(
-            "relative h-7 w-13 rounded-full transition-colors duration-200",
+            "relative h-7 w-13 rounded-full transition-colors duration-300",
             yearly ? "bg-mint-500" : "bg-white/10",
           )}
         >
-          <span
-            className={cn(
-              "absolute top-1 h-5 w-5 rounded-full bg-white transition-all duration-200",
-              yearly ? "left-7" : "left-1",
-            )}
+          <motion.span
+            className="absolute top-1 h-5 w-5 rounded-full bg-white shadow-sm"
+            animate={{ left: yearly ? 28 : 4 }}
+            transition={
+              reduceMotion
+                ? { duration: 0 }
+                : { type: "spring", stiffness: 500, damping: 30 }
+            }
           />
         </button>
         <span className={cn("text-sm", yearly ? "text-white" : "text-slate-500")}>
@@ -64,10 +69,19 @@ export function PricingPlans({ plans }: PricingPlansProps) {
             <h3 className="font-display text-lg font-semibold text-white">{plan.name}</h3>
             <p className="mt-1 text-sm text-slate-400">{plan.description}</p>
 
-            <p className="mt-6">
-              <span className="font-display text-4xl font-bold text-white">
-                {formatPrice(yearly ? Math.round(plan.yearlyPrice / 12) : plan.monthlyPrice)}
-              </span>
+            <p className="mt-6 flex items-baseline gap-1 overflow-hidden">
+              <AnimatePresence mode="popLayout" initial={false}>
+                <motion.span
+                  key={yearly ? "yearly" : "monthly"}
+                  className="font-display text-4xl font-bold text-white"
+                  initial={reduceMotion ? false : { y: 18, opacity: 0, filter: "blur(4px)" }}
+                  animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                  exit={reduceMotion ? undefined : { y: -18, opacity: 0, filter: "blur(4px)" }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {formatPrice(yearly ? Math.round(plan.yearlyPrice / 12) : plan.monthlyPrice)}
+                </motion.span>
+              </AnimatePresence>
               <span className="text-sm text-slate-500"> / month</span>
             </p>
             <p className="mt-1 h-5 text-xs text-slate-500">

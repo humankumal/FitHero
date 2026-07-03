@@ -21,7 +21,7 @@ export function StatTile({
   accent = "bg-mint-400/10 text-mint-400",
 }: StatTileProps) {
   return (
-    <Card className="p-5">
+    <Card className="p-5" hover>
       <div className="flex items-start justify-between gap-3">
         <p className="text-sm text-slate-400">{label}</p>
         {Icon && (

@@ -20,7 +20,7 @@ export function SessionCard({ session, className }: SessionCardProps) {
     <Link
       href={`/programs/${session.slug}`}
       className={cn(
-        "group flex h-full flex-col overflow-hidden rounded-2xl border border-white/8 bg-white/[0.03] shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-white/15 hover:bg-white/[0.05]",
+        "group flex h-full flex-col overflow-hidden rounded-2xl border border-white/8 bg-white/[0.03] shadow-card transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-white/15 hover:bg-white/[0.05] hover:shadow-[0_20px_48px_-20px_rgba(2,6,16,0.9),0_0_32px_-16px_rgba(60,224,173,0.25)] motion-reduce:transition-none motion-reduce:transform-none",
         className,
       )}
     >

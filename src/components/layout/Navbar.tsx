@@ -93,31 +93,55 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden border-t border-white/8 md:hidden"
           >
-            <div className="space-y-1 px-4 py-4">
+            <motion.div
+              className="space-y-1 px-4 py-4"
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={{
+                open: { transition: { staggerChildren: 0.045, delayChildren: 0.05 } },
+                closed: {},
+              }}
+            >
               {navLinks.map((link) => (
-                <Link
+                <motion.div
                   key={link.href}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className={cn(
-                    "block rounded-xl px-4 py-3 text-base",
-                    pathname === link.href
-                      ? "bg-white/8 text-white"
-                      : "text-slate-300 hover:bg-white/5 hover:text-white",
-                  )}
+                  variants={{
+                    open: { opacity: 1, x: 0 },
+                    closed: { opacity: 0, x: -12 },
+                  }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
                 >
-                  {link.label}
-                </Link>
+                  <Link
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={cn(
+                      "block rounded-xl px-4 py-3 text-base transition-colors",
+                      pathname === link.href
+                        ? "bg-white/8 text-white"
+                        : "text-slate-300 hover:bg-white/5 hover:text-white",
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
               ))}
-              <div className="pt-3">
+              <motion.div
+                className="pt-3"
+                variants={{
+                  open: { opacity: 1, x: 0 },
+                  closed: { opacity: 0, x: -12 },
+                }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+              >
                 <Button href="/booking" className="w-full" onClick={() => setMenuOpen(false)}>
                   Book a Session
                 </Button>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

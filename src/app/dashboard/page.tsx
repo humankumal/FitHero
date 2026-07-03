@@ -157,8 +157,8 @@ export default function DashboardPage() {
               <span className="text-xs text-slate-500">resets Monday</span>
             </div>
             <div className="mt-6 space-y-5">
-              {userStats.weeklyGoals.map((goal) => (
-                <GoalProgress key={goal.label} goal={goal} />
+              {userStats.weeklyGoals.map((goal, i) => (
+                <GoalProgress key={goal.label} goal={goal} delay={i * 0.12} />
               ))}
             </div>
             <p className="mt-6 rounded-xl bg-mint-400/8 p-4 text-xs leading-relaxed text-slate-400">

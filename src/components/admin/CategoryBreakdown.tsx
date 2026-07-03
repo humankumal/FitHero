@@ -1,3 +1,6 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
 import type { CategorySlug } from "@/lib/types";
 import { Card } from "@/components/ui/Card";
 import { getCategory } from "@/lib/data";
@@ -15,6 +18,7 @@ interface CategoryBreakdownProps {
 }
 
 export function CategoryBreakdown({ data }: CategoryBreakdownProps) {
+  const reduceMotion = useReducedMotion();
   const total = data.reduce((sum, d) => sum + d.count, 0);
   const max = Math.max(...data.map((d) => d.count));
 
@@ -26,7 +30,7 @@ export function CategoryBreakdown({ data }: CategoryBreakdownProps) {
       </p>
 
       <ul className="mt-7 flex flex-1 flex-col justify-center space-y-5">
-        {data.map((item) => {
+        {data.map((item, i) => {
           const category = getCategory(item.category);
           const share = Math.round((item.count / total) * 100);
           return (
@@ -45,12 +49,17 @@ export function CategoryBreakdown({ data }: CategoryBreakdownProps) {
                 </span>
               </div>
               <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/8">
-                <div
+                <motion.div
                   className="h-full rounded-full"
-                  style={{
-                    width: `${(item.count / max) * 100}%`,
-                    backgroundColor: categoryChartColor[item.category],
-                  }}
+                  style={{ backgroundColor: categoryChartColor[item.category] }}
+                  initial={
+                    reduceMotion
+                      ? { width: `${(item.count / max) * 100}%` }
+                      : { width: "0%" }
+                  }
+                  whileInView={{ width: `${(item.count / max) * 100}%` }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.8, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                 />
               </div>
             </li>

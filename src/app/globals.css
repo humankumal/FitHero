@@ -36,6 +36,8 @@
 
   --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-float: float 7s ease-in-out infinite;
+  --animate-glow-drift: glow-drift 16s ease-in-out infinite alternate;
+  --animate-glow-pulse: glow-pulse 9s ease-in-out infinite;
 
   @keyframes fade-up {
     from {
@@ -55,6 +57,25 @@
     }
     50% {
       transform: translateY(-14px);
+    }
+  }
+
+  @keyframes glow-drift {
+    from {
+      transform: translate3d(-3%, -2%, 0) scale(1);
+    }
+    to {
+      transform: translate3d(3%, 3%, 0) scale(1.1);
+    }
+  }
+
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      opacity: 0.7;
+    }
+    50% {
+      opacity: 1;
     }
   }
 }

@@ -132,7 +132,10 @@ export function ProgramsExplorer({ sessions }: ProgramsExplorerProps) {
       </p>
 
       {filtered.length > 0 ? (
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div
+          key={`${category}-${difficulty}-${query.trim().toLowerCase()}`}
+          className="mt-6 grid gap-5 motion-safe:animate-fade-up sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        >
           {filtered.map((session) => (
             <SessionCard key={session.slug} session={session} />
           ))}
