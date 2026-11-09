@@ -14,6 +14,7 @@ import { formatDate, formatPrice } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Admin Dashboard",
   description: "Bookings, revenue, members, and program performance at a glance.",
+  robots: { index: false, follow: false },
 };
 
 export default function AdminPage() {

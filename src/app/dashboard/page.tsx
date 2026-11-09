@@ -20,6 +20,7 @@ import { cn, formatDate } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Your Dashboard",
   description: "Your upcoming sessions, weekly goals, and progress — all in one place.",
+  robots: { index: false, follow: false },
 };
 
 export default function DashboardPage() {

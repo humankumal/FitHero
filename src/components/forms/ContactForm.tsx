@@ -23,10 +23,17 @@ export function ContactForm() {
         <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-mint-400/15 text-mint-400">
           <CheckIcon className="h-7 w-7" />
         </span>
-        <h3 className="mt-5 font-display text-xl font-semibold text-white">Message sent</h3>
+        <h3 className="mt-5 font-display text-xl font-semibold text-white">Thanks for reaching out</h3>
         <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-slate-400">
-          Thanks for reaching out. A member of the Fit Hero team will get back to you within one
-          business day.
+          Heads up: this contact form is a demo preview, so your message hasn&apos;t been sent
+          anywhere yet. To reach the team directly, email{" "}
+          <a
+            href="mailto:hello@fithero.fit"
+            className="text-mint-400 underline-offset-2 hover:underline"
+          >
+            hello@fithero.fit
+          </a>
+          .
         </p>
         <Button
           type="button"
@@ -92,7 +99,7 @@ export function ContactForm() {
           Send Message
         </Button>
         <p className="text-xs text-slate-500">
-          We reply within one business day. No newsletters, no spam.
+          Demo preview — form submissions aren&apos;t delivered yet. Email us for a real reply.
         </p>
       </form>
     </Card>

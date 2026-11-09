@@ -16,7 +16,7 @@ const contactDetails = [
     icon: MailIcon,
     label: "Email",
     value: "hello@fithero.fit",
-    hint: "Replies within one business day",
+    hint: "The fastest way to reach the team",
   },
   {
     icon: PhoneIcon,

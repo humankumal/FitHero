@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Sora } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,7 +16,7 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fithero.example.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Fit Hero — Train your body. Calm your mind. Upgrade your life.",
     template: "%s | Fit Hero",

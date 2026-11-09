@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import type { Session } from "@/lib/types";
-import { getCategory, getTrainer } from "@/lib/data";
+import { getCategory, getTrainer, pricingPlans } from "@/lib/data";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Input, Label, Select } from "@/components/forms/fields";
@@ -54,6 +54,8 @@ export function BookingForm({ sessions }: BookingFormProps) {
   const searchParams = useSearchParams();
   const reduceMotion = useReducedMotion();
   const requestedSession = searchParams.get("session");
+  const requestedPlan = searchParams.get("plan");
+  const selectedPlan = pricingPlans.find((p) => p.id === requestedPlan);
 
   const [slug, setSlug] = useState(
     sessions.some((s) => s.slug === requestedSession) ? (requestedSession as string) : sessions[0].slug,
@@ -119,11 +121,20 @@ export function BookingForm({ sessions }: BookingFormProps) {
           <span className="text-white">
             {selectedDay ? `${selectedDay.weekday}, ${selectedDay.day}` : "your chosen day"} at {time}
           </span>
-          . A confirmation with your session link and preparation notes is on its way to your
-          inbox.
+          {selectedPlan ? (
+            <>
+              {" "}
+              as part of the <span className="text-white">{selectedPlan.name}</span> plan
+            </>
+          ) : null}
+          .
         </p>
         <p className="mt-4 text-sm text-slate-500">
           Booking reference: <span className="font-mono text-mint-400">{confirmed.reference}</span>
+        </p>
+        <p className="mx-auto mt-5 max-w-md rounded-xl bg-ember-400/10 px-4 py-3 text-xs leading-relaxed text-ember-300">
+          Demo preview — bookings aren&apos;t stored and no confirmation email is sent yet. Live
+          booking arrives with V2.
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button href="/dashboard">Go to Your Dashboard</Button>
@@ -301,6 +312,14 @@ export function BookingForm({ sessions }: BookingFormProps) {
               <dt className="text-slate-400">Difficulty</dt>
               <dd className="text-white">{session.difficulty}</dd>
             </div>
+            {selectedPlan && (
+              <div className="flex items-center justify-between">
+                <dt className="text-slate-400">Selected plan</dt>
+                <dd className="text-white">
+                  {selectedPlan.name} · {formatPrice(selectedPlan.monthlyPrice)}/mo
+                </dd>
+              </div>
+            )}
             <div className="flex items-center justify-between border-t border-white/8 pt-3">
               <dt className="text-slate-400">Program price</dt>
               <dd className="font-display text-lg font-semibold text-white">

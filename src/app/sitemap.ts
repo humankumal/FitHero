@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { sessions } from "@/lib/data";
+import { SITE_URL } from "@/lib/site";
 
-const BASE_URL = "https://fithero.example.com";
+const BASE_URL = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = ["", "/programs", "/pricing", "/booking", "/about", "/contact"].map(
